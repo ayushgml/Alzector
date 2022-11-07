@@ -1,0 +1,457 @@
+<!DOCTYPE HTML>
+<html>
+
+    <head>
+        <!-- Site made with Mobirise Website Builder v5.2.0, https://mobirise.com -->
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="generator" content="Mobirise v5.2.0, mobirise.com">
+        <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+        <link rel="shortcut icon" href="assets/images/1-96x69.png" type="image/x-icon">
+        <meta name="description" content="">
+        
+        
+        <title>Home</title>
+        <link rel="stylesheet" href="{{url}}/static/templates/assets/web/assets/mobirise-icons2/mobirise2.css">
+        <link rel="stylesheet" href="{{url}}/static/templates/assets/web/assets/mobirise-icons/mobirise-icons.css">
+        <link rel="stylesheet" href="{{url}}/static/templates/assets/tether/tether.min.css">
+        <link rel="stylesheet" href="{{url}}/static/templates/assets/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="{{url}}/static/templates/assets/bootstrap/css/bootstrap-grid.min.css">
+        <link rel="stylesheet" href="{{url}}/static/templates/assets/bootstrap/css/bootstrap-reboot.min.css">
+        <link rel="stylesheet" href="{{url}}/static/templates/assets/dropdown/css/style.css">
+        <link rel="stylesheet" href="{{url}}/static/templates/assets/socicon/css/styles.css">
+        <link rel="stylesheet" href="{{url}}/static/templates/assets/theme/css/style.css">
+        <link rel="preload" as="style" href="{{url}}/static/templates/assets/mobirise/css/mbr-additional.css"><link rel="stylesheet" href="{{url}}/static/templates/assets/mobirise/css/mbr-additional.css" type="text/css">
+            
+    </head>
+        
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        #demo {
+          text-align: center;
+          font-size: 60px;
+          margin-top: 0;
+        }
+    </style>
+    </br>
+    </br>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/record.css') }}">
+{#    <script src="https://webgazer.cs.brown.edu/webgazer.js?" type="text/javascript" ></script>#}
+    <script src="{{ url_for('static', filename='scripts/webgazer.js') }}" type="text/javascript"></script>
+</head>
+
+<body>
+</br>
+</br>
+</br>
+<div class="container">
+    <div class="row" style="align-content: center">
+        <div class="col-lg-8  offset-lg-2">
+            <center>
+            
+            <h3 id='baseline' class="mt-5">Baseline</h3>
+            
+            <!-- 
+            Video feed to left of user.
+            --> 
+            {#<img src="{{url}} +'/video_feed">#}
+
+            <!-- 
+            This will start the session and baseline the user. 
+            --> 
+            <button id="start_baseline" onclick='startSession(15,"baseline",sessionid)'>Begin Session</button>
+            <!-- 
+            This will start the picture task.
+            --> 
+            <button id="start_image" onclick='startSession(10, "image",sessionid)' style="display:none">Start image task</button>
+            <!-- 
+            This will start the video task.
+            --> 
+            <button id="start_video" onclick='startSession(20, "video",sessionid)' style="display:none">Start video task</button>
+            <!-- 
+            This will start the sentence reading task.
+            --> 
+            <button id="start_text" onclick='startSession(30, "text", sessionid)' style="display:none">Start text task</button>
+
+            <p id="text" style="color:black;font-size:30px; display:none">
+                <strong> Please read the following passage: </strong> 
+                </br></br>
+                “You wish to know all about my grandfather. Well, he is nearly 93 years old, yet he still thinks as swiftly as ever. He dresses himself in an old black frock coat, usually several buttons missing. A long beard clings to his chin, giving those who observe him a pronounced feeling of the utmost respect. When he speaks, his voice is just a bit cracked and quivers a bit. Twice each day he plays skillfully and with zest upon a small organ. Except in the winter when the snow or ice prevents, he slowly takes a short walk in the open air each day. We have often urged him to walk more and smoke less, but he always answers, “Banana oil!” Grandfather likes to be modern in his language.”
+            </br></br> 
+            </p>
+            
+            <table id='image' style="width:100%; display:none">
+                <tr>
+                    <th><img src='../static/pictures/rooster.png' height=300px></img></th>
+                    <th><img src='../static/pictures/tree.png' height=300px></img></th>
+                </tr>
+            </table>
+            
+            <video autoplay loop id='video' width="800" height="800" style="display:none;">
+                <source src="../static/videos/walking.mp4" type="video/mp4"/>  		
+                Your Browser does not support the video element
+            </center> 
+            
+        </div>
+    </div>
+    <p id="demo"></p>
+</div>
+</body>
+
+</br>
+
+
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+
+<script>
+    // detect browser and OS for debugging
+    var nVer = navigator.appVersion;
+    var nAgt = navigator.userAgent;
+    var browserName  = navigator.appName;
+    var fullVersion  = ''+parseFloat(navigator.appVersion); 
+    var majorVersion = parseInt(navigator.appVersion,10);
+    var nameOffset,verOffset,ix;
+
+    // In Opera, the true version is after "Opera" or after "Version"
+    if ((verOffset=nAgt.indexOf("Opera"))!=-1) {
+    browserName = "Opera";
+    fullVersion = nAgt.substring(verOffset+6);
+    if ((verOffset=nAgt.indexOf("Version"))!=-1) 
+    fullVersion = nAgt.substring(verOffset+8);
+    }
+    // In MSIE, the true version is after "MSIE" in userAgent
+    else if ((verOffset=nAgt.indexOf("MSIE"))!=-1) {
+    browserName = "Microsoft Internet Explorer";
+    fullVersion = nAgt.substring(verOffset+5);
+    }
+    // In Chrome, the true version is after "Chrome" 
+    else if ((verOffset=nAgt.indexOf("Chrome"))!=-1) {
+    browserName = "Chrome";
+    fullVersion = nAgt.substring(verOffset+7);
+    }
+    // In Safari, the true version is after "Safari" or after "Version" 
+    else if ((verOffset=nAgt.indexOf("Safari"))!=-1) {
+    browserName = "Safari";
+    fullVersion = nAgt.substring(verOffset+7);
+    if ((verOffset=nAgt.indexOf("Version"))!=-1) 
+    fullVersion = nAgt.substring(verOffset+8);
+    }
+    // In Firefox, the true version is after "Firefox" 
+    else if ((verOffset=nAgt.indexOf("Firefox"))!=-1) {
+    browserName = "Firefox";
+    fullVersion = nAgt.substring(verOffset+8);
+    }
+    // In most other browsers, "name/version" is at the end of userAgent 
+    else if ( (nameOffset=nAgt.lastIndexOf(' ')+1) < 
+            (verOffset=nAgt.lastIndexOf('/')) ) 
+    {
+    browserName = nAgt.substring(nameOffset,verOffset);
+    fullVersion = nAgt.substring(verOffset+1);
+    if (browserName.toLowerCase()==browserName.toUpperCase()) {
+    browserName = navigator.appName;
+    }
+    }
+    // trim the fullVersion string at semicolon/space if present
+    if ((ix=fullVersion.indexOf(";"))!=-1)
+    fullVersion=fullVersion.substring(0,ix);
+    if ((ix=fullVersion.indexOf(" "))!=-1)
+    fullVersion=fullVersion.substring(0,ix);
+
+    majorVersion = parseInt(''+fullVersion,10);
+    if (isNaN(majorVersion)) {
+    fullVersion  = ''+parseFloat(navigator.appVersion); 
+    majorVersion = parseInt(navigator.appVersion,10);
+    }
+
+    var predictionData = [];
+
+    // Don't listen to mouse events
+    // (this didn't seem to work though... the red dot still appears...)
+    webgazer.removeMouseEventListeners();
+
+    // use tracker 
+    webgazer.setTracker("TFFacemesh")
+
+    webgazer.setGazeListener(function(data, elapsedTime) {
+        if (data == null) {
+            return;
+        }
+        var x_prediction = data.x; //these x coordinates are relative to the viewport
+        var y_prediction = data.y; //these y coordinates are relative to the viewport
+
+        predictionData.push([x_prediction, y_prediction])
+    }).begin();
+
+    console.log("webgazer is ready");
+
+    // Immediately stop collecting data and clear the cache until
+    // a session is started
+    webgazer.pause();
+    console.log("webgazer is paused");
+
+    predictionData = [];
+    console.log(predictionData);
+
+    function uuidv4() {
+      return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+        return v.toString(16);
+      });
+    }
+
+    // create a session id
+    sessionid=uuidv4();
+
+   function startSession(recordingTime, task, sessionid) {
+        // Start data collection
+        webgazer.resume();
+        console.log("starting webgazer - " + task);
+
+        if(task == 'baseline') {
+            document.getElementById('baseline').style.display='block';
+        } else if(task=='text'){
+            document.getElementById('text').style.display='block';
+        } else if(task=='image'){
+            document.getElementById('image').style.display='block';
+        } else if(task=='video'){
+            document.getElementById('video').style.display='block';
+        }
+        // document.getElementById('baseline').style.display='block';
+        // document.getElementById('baseline').style.display='none';
+
+        // document.getElementById('text').style.display='block';
+        // document.getElementById('text').style.display='none';
+
+        // document.getElementById('image').style.display='block';
+        // document.getElementById('image').style.display='none';
+
+        // document.getElementById('video').style.display='block';
+        // document.getElementById('image').style.display='none';
+
+        if(task == 'baseline') {
+            var downloadTimer = setInterval(function(){
+            if(recordingTime <= 0){
+                // Stop data collection and handle data
+                webgazer.pause();
+
+                // store browser information
+                browser_data= {'browserName': browserName,
+                                'fullVersion': fullVersion,
+                                'majorVersion': majorVersion,
+                                'appName':navigator.appName,
+                                'userAgent':navigator.userAgent}
+
+                all_data={"sessionId": sessionid, 
+                          "url": "{{url}}/api/baseline",
+                          "date": new Date().toLocaleString(), 
+                          "browser_data": browser_data, 
+                          "data": predictionData,
+                          "gender": "{{gender}}",
+                          "age": "{{age}}"}
+                          
+                // Send predictionData to backend somehow
+                // possibly via jquery POST or something
+                $("document").ready(function(){
+                    $.ajax({
+                        url: "{{url}}/api/baseline",
+                        type: "POST",
+                        contentType: "application/json",
+                        data: JSON.stringify(all_data)
+                    })
+                });
+                // For whatever reason, this isn't working - no data is being collected here unless
+                // the webgazer object is initialized and starts recording right away. Huh.
+                console.log(predictionData);
+
+                // Finally, stop the timer
+                clearInterval(downloadTimer);
+                
+                predictionData = [];
+                document.getElementById('baseline').style.display='none';
+                document.getElementById('start_text').style.display='none';
+                document.getElementById('start_baseline').style.display='none';
+                document.getElementById('start_image').style.display='block';
+                document.getElementById('start_video').style.display='none';
+
+            }
+            document.getElementById("demo").innerHTML = recordingTime;
+            recordingTime -= 1;
+        }, 1000);
+        } else if(task == 'image'){
+            downloadTimer = setInterval(function(){
+            if(recordingTime <= 0){
+                // Stop data collection and handle data
+                webgazer.pause();
+
+                // store browser information
+                browser_data= {'browserName': browserName,
+                                'fullVersion': fullVersion,
+                                'majorVersion': majorVersion,
+                                'appName':navigator.appName,
+                                'userAgent':navigator.userAgent}
+
+                all_data={"sessionId": sessionid, 
+                          "url": "{{url}}/api/image",
+                          "date": new Date().toLocaleString(), 
+                          "browser_data": browser_data, 
+                          "data": predictionData,
+                          "gender": "{{gender}}",
+                          "age": "{{age}}"}
+                          
+                // Send predictionData to backend somehow
+                // possibly via jquery POST or something
+                $("document").ready(function(){
+                    $.ajax({
+                        url: "{{url}}/api/image",
+                        type: "POST",
+                        contentType: "application/json",
+                        data: JSON.stringify(all_data)
+                    })
+                });
+                // For whatever reason, this isn't working - no data is being collected here unless
+                // the webgazer object is initialized and starts recording right away. Huh.
+                // console.log(predictionData);
+
+                // Finally, stop the timer
+                clearInterval(downloadTimer);
+                predictionData = [];
+
+                document.getElementById('image').style.display='none';
+                document.getElementById('start_text').style.display='none';
+                document.getElementById('start_baseline').style.display='none';
+                document.getElementById('start_image').style.display='none';
+                document.getElementById('start_video').style.display='block';
+            }
+            document.getElementById("demo").innerHTML = recordingTime;
+            recordingTime -= 1;
+        }, 1000);
+        } else if(task == 'video'){
+            downloadTimer = setInterval(function(){
+            if(recordingTime <= 0){
+                // Stop data collection and handle data
+                webgazer.pause();
+
+                // store browser information
+                browser_data= {'browserName': browserName,
+                                'fullVersion': fullVersion,
+                                'majorVersion': majorVersion,
+                                'appName':navigator.appName,
+                                'userAgent':navigator.userAgent}
+
+                all_data={"sessionId": sessionid, 
+                          "url": "{{url}}/api/video",
+                          "date": new Date().toLocaleString(), 
+                          "browser_data": browser_data, 
+                          "data": predictionData,
+                          "gender": "{{gender}}",
+                          "age": "{{age}}"}
+                          
+                // Send predictionData to backend somehow
+                // possibly via jquery POST or something
+                $("document").ready(function(){
+                    $.ajax({
+                        url: "{{url}}/api/video",
+                        type: "POST",
+                        contentType: "application/json",
+                        data: JSON.stringify(all_data)
+                    })
+                });
+                // For whatever reason, this isn't working - no data is being collected here unless
+                // the webgazer object is initialized and starts recording right away. Huh.
+                // console.log(predictionData);
+
+                // Finally, stop the timer
+                clearInterval(downloadTimer);
+                predictionData = [];
+                
+                document.getElementById('video').style.display='none';
+                document.getElementById('start_text').style.display='block';
+                document.getElementById('start_baseline').style.display='none';
+                document.getElementById('start_image').style.display='none';
+                document.getElementById('start_video').style.display='none';
+            }
+            document.getElementById("demo").innerHTML = recordingTime;
+            recordingTime -= 1;
+        }, 1000);
+        } else if(task == 'text'){
+            downloadTimer = setInterval(function(){
+            if(recordingTime <= 0){
+                // Stop data collection and handle data
+                webgazer.pause();
+
+                // store browser information
+                browser_data= {'browserName': browserName,
+                                'fullVersion': fullVersion,
+                                'majorVersion': majorVersion,
+                                'appName':navigator.appName,
+                                'userAgent':navigator.userAgent}
+
+                all_data={"sessionId": sessionid, 
+                          "url": "{{url}}/api/text",
+                          "date": new Date().toLocaleString(), 
+                          "browser_data": browser_data, 
+                          "data": predictionData,
+                          "gender": "{{gender}}",
+                          "age": "{{age}}"}
+                          
+                // Send predictionData to backend somehow
+                // possibly via jquery POST or something
+                $("document").ready(function(){
+                    $.ajax({
+                        url: "{{url}}/api/text",
+                        type: "POST",
+                        contentType: "application/json",
+                        data: JSON.stringify(all_data)
+                    })
+                });
+                // For whatever reason, this isn't working - no data is being collected here unless
+                // the webgazer object is initialized and starts recording right away. Huh.
+                // console.log(predictionData);
+
+                // Finally, stop the timer
+                clearInterval(downloadTimer);
+                
+                predictionData = [];
+                window.location.replace("{{url}}"+'/loading/'+sessionid);
+            }
+            document.getElementById("demo").innerHTML = recordingTime;
+            recordingTime -= 1;
+        }, 1000);
+        } 
+}
+</script>
+
+<section class="menu menu2 cid-spC6buRFV8" once="menu" id="menu2-5">
+        
+    <nav class="navbar navbar-dropdown navbar-fixed-top navbar-expand-lg">
+        <div class="container">
+            <div class="navbar-brand">
+                <span class="navbar-logo">
+                    <a href="{{url}}">
+                        <img src="{{url}}/static/templates/assets/images/1-96x69.png" alt="Mobirise" style="height: 3rem;">
+                    </a>
+                </span>
+                <span class="navbar-caption-wrap"><a class="navbar-caption text-black display-7" href="{{url}}">Vibe</a></span>
+            </div>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <div class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav nav-dropdown nav-right" data-app-modern-menu="true"><li class="nav-item"><a class="nav-link link text-black display-4" href="{{url}}">
+                            Back</a></li></ul>
+                
+                
+            </div>
+        </div>
+    </nav>
+</section>
+
+</html>
