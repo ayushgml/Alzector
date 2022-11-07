@@ -144,7 +144,7 @@ def get_reports(sessionid):
     # get all the below from loadiing in the .JSON documents 
 
     # baseline 
-    os.chdir(r'/Users/ayushgupta/Downloads/Programming/vibe/upload/test')
+    os.chdir(r'/Users/ayushgupta/Downloads/Programming/temp/vibe/upload/test')
     g=json.load(open('baseline.json'))
     data=g['data']
     xlist, ylist = get_coords(data)
@@ -154,7 +154,7 @@ def get_reports(sessionid):
     baseline_y_std=np.std(xlist)
 
     # image 
-    os.chdir(r'/Users/ayushgupta/Downloads/Programming/vibe/upload/test')
+    
     g=json.load(open('image.json'))
     data=g['data']
     xlist, ylist = get_coords(data)
@@ -164,7 +164,7 @@ def get_reports(sessionid):
     image_y_std=np.std(ylist)
 
     # video
-    os.chdir(r'/Users/ayushgupta/Downloads/Programming/vibe/upload/test')
+    
     g=json.load(open('video.json'))
     data=g['data']
     xlist, ylist = get_coords(data)
@@ -174,7 +174,7 @@ def get_reports(sessionid):
     video_y_std=np.std(ylist)
 
     # text 
-    os.chdir(r'/Users/ayushgupta/Downloads/Programming/vibe/upload/test')
+    
     g=json.load(open('text.json'))
     data=g['data']
     xlist, ylist = get_coords(data)
