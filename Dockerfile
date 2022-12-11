@@ -1,6 +1,5 @@
 # get Ubuntu base image
 FROM	ubuntu:18.04 AS base
-MAINTAINER Jim Schwoebel <jim.schwoebel@gmail.com>
 
 # set working directory
 WORKDIR /usr/src/app
@@ -54,3 +53,5 @@ RUN	pip3 install -r requirements.txt
 
 # set working directory
 WORKDIR	/usr/src/app
+
+CMD ["python","app.py"]
